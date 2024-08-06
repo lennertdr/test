@@ -1,0 +1,73 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dpv: <https://w3id.org/dpv#> .
+@prefix eu-gdpr: <https://w3id.org/dpv/legal/eu/gdpr#> .
+@prefix loc: <https://w3id.org/dpv/loc#> .
+@prefix pd: <https://w3id.org/dpv/pd#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex: <https://example.org/> .
+@prefix schema: <https://schema.org/> .
+
+<https://example.com/receipt-asdmj1oasd>
+  a dpv:ConsentReceipt ;
+  dcterms:conformsTo <https://w3id.org/dpv/schema/dpv-27560#receipt> ;
+  dcterms:created "2024-01-31T13:20:00"^^xsd:dateTime ;
+  dcterms:identifier "receipt-asdmj1oasd"^^xsd:string ;
+  dcterms:publisher ex:Acme ;
+  dpv:hasRecordOfActivity <https://example.com/a6f58318-72e6-46a2-bfd7-f36d795e30cd> ;
+  schema:recipient dpv:DataSubject .
+
+<https://example.com/a6f58318-72e6-46a2-bfd7-f36d795e30cd>
+  a dpv:ConsentRecord ;
+  dcterms:conformsTo <https://w3id.org/dpv/schema/dpv-27560#record> ;
+  dcterms:identifier "a6f58318-72e6-46a2-bfd7-f36d795e30cd"^^xsd:string ;
+  dpv:hasApplicableLaw eu-gdpr:GDPR ;
+  dpv:hasConsentStatus [
+    a dpv:ConsentGiven, dpv:ExpressedConsent ;
+    dpv:hasIndicationMethod "Interaction in App"^^xsd:string ;
+    dpv:isIndicatedAtTime "2024-01-01T11:17:45"^^xsd:dateTime ;
+    dpv:isIndicatedBy dpv:DataSubject
+  ], [
+    a dpv:ConsentWithdrawn ;
+    dpv:hasIndicationMethod "Interaction in App"^^xsd:string ;
+    dpv:isIndicatedAtTime "2024-04-20T18:24:30"^^xsd:dateTime ;
+    dpv:isIndicatedBy dpv:DataSubject
+  ] ;
+  dpv:hasDataController ex:Acme ;
+  dpv:hasDataProcessor ex:Beta ;
+  dpv:hasDataSubject ex:0760c9ba ;
+  dpv:hasInvolvementControl [
+    a dpv:ProvidingPermission, dpv:WithdrawingPermission ;
+    dpv:isExercisedAt <https://example.com/manage-consent>
+  ] ;
+  dpv:hasJurisdiction loc:IE ;
+  dpv:hasNotice <https://example.com/notices/a6f58318-72e6-46a2-bfd7-f36d795e30cd> ;
+  dpv:hasProcess [
+    a dpv:Process ;
+    dpv:hasRecipient ex:Acme, ex:Beta ;
+    dpv:hasPurpose dpv:PaymentManagement ;
+    dpv:hasPersonalData pd:EmailAddress ;
+    dpv:hasStorageCondition [
+      a dpv:StorageLocation ;
+      dpv:hasLocation loc:IE, loc:FR, loc:DE
+    ], [
+      a dpv:StorageDuration ;
+      dpv:hasDuration "P6M"^^xsd:duration
+    ], [
+      a dpv:StorageDeletion ;
+      dpv:hasDuration "P1M"^^xsd:duration
+    ]
+  ] ;
+  dpv:hasRight [
+    a dpv:DataSubjectRight, eu-gdpr:A7-3 ;
+    dcterms:title "Right to Withdraw Consent"^^xsd:string ;
+    dpv:isExercisedAt <https://example.com/rights>
+  ] .
+
+<https://example.com/notices/a6f58318-72e6-46a2-bfd7-f36d795e30cd>
+  a dpv:ConsentNotice ;
+  dcterms:coverage "2024-01-01/P12M"^^xsd:string ;
+  dcterms:date "2024-01-01T11:15:23"^^xsd:dateTime ;
+  dcterms:language "EN"^^xsd:string .
+
+ex:0760c9ba a dpv:Consumer .
